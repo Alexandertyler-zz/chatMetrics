@@ -34,6 +34,7 @@ class chat_listener:
 
     def join_channel(self, channel):
         self.ircsock.send('JOIN #%s\r\n' % channel)
+        time.sleep(0.5)
         
         #load join channel buffer and dump it
         join_msg = self.ircsock.recv(2048)
