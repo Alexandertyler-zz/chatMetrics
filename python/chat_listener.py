@@ -72,19 +72,21 @@ class chat_listener:
 
     def chat_loop(self):
         while 1:
+            time.sleep(0.2)
             try:
                 ircmsg = self.ircsock.recv(2048)
+                #spliton this in case the buffer has more than one entry
                 ircmsg = ircmsg.split('\r\n')
                 for msg in ircmsg:
+                    #if we are being pinged, pong then restart loop
                     if msg.find('PING :tmi.twitch.tv') != -1:
                         self.pong()
+                        continue
                     entry = self.decompose_message(msg)
                     if entry:
                         self.insert_log(entry)
-                    time.sleep(0.2)
             except Exception as e:
                 print e
-                time.sleep(0.2)
                 continue
 
 
