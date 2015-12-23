@@ -51,13 +51,10 @@ class chat_listener:
         chat_array = message.split(':', 2)
         print chat_array
         
-        #separate out the user, if me, drop entry
+        #separate out the user, if me **Allowing**
         #also doing bug checking on list index failures
         try:
             user = chat_array[1].split('!')[0]
-            if user == 'chatmetrics':
-                return None
-            
             channel = chat_array[1].split('#')[1].strip(' ')
             message = chat_array[2]
             msg_dict = {'user' : user,
@@ -75,6 +72,9 @@ class chat_listener:
 
     def chat_loop(self):
         while 1:
+            #need some sort of async listener to kill process cleanly.
+            #right now all I have is a ^c
+            
             time.sleep(0.2)
             try:
                 ircmsg = self.ircsock.recv(2048)
