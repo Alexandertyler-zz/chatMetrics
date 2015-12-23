@@ -81,6 +81,9 @@ class chat_listener:
                 #spliton this in case the buffer has more than one entry
                 ircmsg = ircmsg.split('\r\n')
                 for msg in ircmsg:
+                    #check if the msg is an empty str, comes from trailing \r\n
+                    if not msg:
+                        continue
                     #if we are being pinged, pong then restart loop
                     if msg.find('PING :tmi.twitch.tv') != -1:
                         self.pong()
