@@ -1,5 +1,7 @@
 from chat_listener import chat_listener
+from twitch_api import twitch_api
 import subprocess32 as subprocess
+import pprint as pp
 
 from pymongo import MongoClient
 
@@ -15,22 +17,28 @@ class chat_process():
     
     def check_for_errors(self):
         #do something to check the output of the chat listener for some sort of error
+        return
     
     def kill_process(self):
         #send a kill command to the chart_listener process
+        return
 
 
 
 
 if __name__ == '__main__':
-    
-    
+    api = twitch_api()
+    stream_json = api.get_featured_streams(1)
+    pp.pprint(stream_json)
 
+
+    
+    """
     chat = chat_listener()
     chat.login_routine()
     chat.join_channel('WagamamaTV')
     chat.
-    """chat1 = chat_listener()
+    chat1 = chat_listener()
     chat1.login_routine()
     chat1.join_channel('taketv')
     chat1.print_loop()
