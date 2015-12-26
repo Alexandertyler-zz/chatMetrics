@@ -24,13 +24,13 @@ class chat_process():
         return
 
 
-
-
 if __name__ == '__main__':
     api = twitch_api()
-    stream_json = api.get_featured_streams(1)
-    pp.pprint(stream_json)
+    #top_games_json = api.get_games_top(1, 0)
+    #pp.pprint(top_games_json)
 
+    get_str_json = api.get_streams(limit=1)
+    pp.pprint(get_str_json)
 
     
     """
