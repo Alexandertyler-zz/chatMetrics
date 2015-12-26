@@ -31,14 +31,14 @@ if __name__ == '__main__':
 
     get_str_json = api.get_streams(limit=1)
     #pp.pprint(get_str_json)
-    pp.pprint(get_str_json['streams'][0]['channel']['name'])
-
+    name = get_str_json['streams'][0]['channel']['name']
+    print name
     
-    """
     chat = chat_listener()
     chat.login_routine()
-    chat.join_channel('WagamamaTV')
-    chat.
+    chat.join_channel(name)
+    chat.chat_loop()
+    """
     chat1 = chat_listener()
     chat1.login_routine()
     chat1.join_channel('taketv')
