@@ -30,7 +30,8 @@ if __name__ == '__main__':
     #pp.pprint(top_games_json)
 
     get_str_json = api.get_streams(limit=1)
-    pp.pprint(get_str_json)
+    #pp.pprint(get_str_json)
+    pp.pprint(get_str_json['streams'][0]['channel']['name'])
 
     
     """
