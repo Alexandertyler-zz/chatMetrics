@@ -1,42 +1,64 @@
 from chat_listener import chat_listener
 from twitch_api import twitch_api
-import subprocess32 as subprocess
-import pprint as pp
-
 from pymongo import MongoClient
+import pprint as pp
+import threading
 
-class chat_process():
+class master_thread():
 
     def __init__(self):
-        self.channel = ''
-        self.proc = None
+        self.api = twitch_api()
+        self.channels = {}
+        self.stop_event = threading.Event()
 
-    def launch_process(self):
-        self.proc = subprocess.Popen(['python', 'chat_listener.py', self.channel], stdout=subprocess.PIPE, stderr=subprprocess.PIPE)
-        self.out, self.err = self.proc.communicate()
+    def load_current_top_streams(self, stream_count):
+        stream_json = api.get_streams(limit=stream_count)
+        for stream in stream_json['streams']:
+            #only load english streams for now
+            if stream['channel']['language'] == 'en':
+                #add the channel to our dict with value = False where
+                #value is whether a thread using this channel has launched or not.
+                #also no duplicates in case this needs to be called again later
+                if not self.channels[stream['channel']['name']:
+                    self.channels[stream['channel']['name']] = False
+
+    def launch_all(self):
+        for key, value in self.channels.iteritems():
+            if not value:
+                self.launch_process(key)
+
+    def launch_process(self, channel):
+        t = threading.Thread(target=build_chat_listener, args=[channel, self.stop_event])
+        t.start()
+        self.channel[channel] = True
+
+    def stop_all(self):
+        self.stop_event.set()
     
     def check_for_errors(self):
         #do something to check the output of the chat listener for some sort of error
         return
-    
-    def kill_process(self):
-        #send a kill command to the chart_listener process
-        return
-
+ 
 
 if __name__ == '__main__':
     api = twitch_api()
     #top_games_json = api.get_games_top(1, 0)
     #pp.pprint(top_games_json)
 
-    get_str_json = api.get_streams(limit=1)
+    channels = []
+
+    get_str_json = api.get_streams(limit=10)
     #pp.pprint(get_str_json)
-    name = get_str_json['streams'][0]['channel']['name']
-    print name
+    for stream in get_str_json['streams']:
+        print stream['channel']['language']
+        if stream['channel']['language'] == 'en':
+            channels.append(stream['channel']['name'])
+    
+    print channels
     
     chat = chat_listener()
     chat.login_routine()
-    chat.join_channel(name)
+    chat.join_channel(channels[0])
     chat.chat_loop()
     """
     chat1 = chat_listener()

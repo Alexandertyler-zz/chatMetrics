@@ -1,6 +1,7 @@
 import sys
 import socket
 import time
+import threading
 
 from pymongo import MongoClient
 
@@ -70,8 +71,8 @@ class chat_listener:
         self.log_count += 1
         print '!!!!!!LOG COUNT = ' + str(self.log_count)
 
-    def chat_loop(self):
-        while 1:
+    def chat_loop(self, stop_event):
+        while not stop_event.is_set():
             #need some sort of async listener to kill process cleanly.
             #right now all I have is a ^c
             
