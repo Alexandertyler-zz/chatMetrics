@@ -11,7 +11,7 @@ var morgan = require('morgan');
 app.use(express.static(__dirname + '/public/static'));
 app.use(morgan('dev'));
 
-app.get('/', function(req, res) {
+app.get('/*', function(req, res) {
   res.sendfile('index.html');
 });
 
