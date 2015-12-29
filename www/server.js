@@ -8,7 +8,7 @@ var morgan = require('morgan');
 
 //mongoose.connect('mongodb://');
 
-app.use(express.static(__dirname + '/public/static'));
+app.use(express.static(__dirname + '/static'));
 app.use(morgan('dev'));
 
 app.get('/*', function(req, res) {
