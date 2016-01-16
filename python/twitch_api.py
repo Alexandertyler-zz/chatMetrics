@@ -1,7 +1,7 @@
 import requests
 import pprint
 
-class twitch_api:
+class twitch_api(object):
 #The functions defined in this
 #use an ordering format resembling
 #the url used for the call

@@ -5,7 +5,7 @@ import threading
 
 from pymongo import MongoClient
 
-class chat_listener:
+class chat_listener(threading.Thread):
 
     def __init__(self):
         self.ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
