@@ -8,7 +8,7 @@ class twitch_api:
 
     def __init__(self):
         #derp do nothing for now
-        self.ops = { 'client_id': 'rk5jc5h3ossghumsqhq6mciwzmyce'}
+        self.ops = { 'client_id': ''}
 
     def get_streams_featured(self, limit=25, offset=0):
         ops = {'limit': limit, 'offset': offset}

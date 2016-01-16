@@ -16,7 +16,7 @@ class chat_listener:
 
     def login_routine(self, server='irc.twitch.tv',
       port='6667', nick='ChatMetrics', 
-      oauth='oauth:2t96i2zewlhfs2uvbeceb5dw9en4sq', channel=None):
+      oauth='', channel=None):
 
         #default server is irc.twitch.tv
         #default port is 6667
