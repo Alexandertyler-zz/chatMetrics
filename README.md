@@ -18,3 +18,8 @@ TODO:
     - Probably going to be somestatic page at first with angular elements.
     - How should I design the data? Graphs or something else?
 
+
+DB SCHEMA:
+  * db = chatMetrics
+  * collection = chatlogs
+  * log_entry = { 'user': string, 'channel':string, 'message': string}

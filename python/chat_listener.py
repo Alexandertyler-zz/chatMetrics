@@ -10,8 +10,8 @@ class chat_listener(threading.Thread):
     def __init__(self):
         self.ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client = MongoClient('localhost', 27017)
-        self.db = self.client.chat_metrics
-        self.collection = self.db.chat_logs
+        self.db = self.client.chatMetrics
+        self.collection = self.db.chatlogs
         self.log_count = 0
 
     def login_routine(self, server='irc.twitch.tv',
