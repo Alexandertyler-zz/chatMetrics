@@ -11,7 +11,8 @@ class chat_listener(threading.Thread):
         self.ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client = MongoClient('localhost', 27017)
         self.db = self.client.chatMetrics
-        self.collection = self.db.chatlogs
+        self.collection_chatlogs = self.db.chatlogs
+        self.collection_toplogs = self.db.toplogs
         self.log_count = 0
 
     def login_routine(self, server='irc.twitch.tv',
@@ -67,7 +68,11 @@ class chat_listener(threading.Thread):
             return None
 
     def insert_log(self, entry):
-        chat_id = self.collection.insert_one(entry).inserted_id
+        self.collection_chatlogs.insert_one(entry) 
+        self.collection_toplogs.update(entry.items()[2], 
+                { '$inc': { 'count': 1} },
+                { 'upsert': 'True' }
+                )
         self.log_count += 1
         print '!!!!!!LOG COUNT = ' + str(self.log_count)
 
