@@ -3,9 +3,13 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended : true }));
+app.use(bodyParser.json());
+
 //used for logging requests to the console
 var morgan = require('morgan');
-var body_parser = require('body-parser');
+app.use(morgan('dev'));
 
 //============== Mongodb Load =============
 //Connect to the DB and load our schema
@@ -13,7 +17,6 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/chatMetrics');
 var Chatlog = require('./app/models/chatlog');
 
-app.use(morgan('dev'));
 //Serve all the static files
 app.use(express.static(__dirname + '/static'));
 
@@ -30,7 +33,11 @@ router.get('/', function(req, res) {
 router.route('/chatlog')
   .post(function(req, res) {
     var chatlog = new Chatlog(); //a new instance of a chatlog from the schema
-    chatlog.name = req.body.name;
+    
+    console.log(req.body);
+    chatlog.user = req.body.user;
+    chatlog.channel = req.body.channel;
+    chatlog.message = req.body.message;
 
     chatlog.save(function(err) {
       if (err) {
