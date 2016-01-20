@@ -16,6 +16,7 @@ app.use(morgan('dev'));
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/chatMetrics');
 var Chatlog = require('./app/models/chatlog');
+var Toplogs = require('./app/models/toplogs');
 
 //Serve all the static files
 app.use(express.static(__dirname + '/app/static'));
@@ -45,6 +46,18 @@ router.route('/chatlog')
       }
       res.json({ message: 'Chatlog created' });
     });
+  });
+
+router.route('/toplogs')
+  .get(function(req, res) {
+    var toplogs = new Toplogs();
+    console.log(req.query);
+    if (req.query.count) {
+      //call db lookup on top COUNT logs
+    }
+    
+
+    res.json({ message: 'Get recieved'});
   });
 
 //======= Register routes =======
