@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost:27017/chatMetrics');
 var Chatlog = require('./app/models/chatlog');
 
 //Serve all the static files
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(__dirname + '/app/static'));
 
 //=============== API ==============
 router.use(function(req, res, next) {
